@@ -1,13 +1,42 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-
+import { useState, useMemo } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { Prisma, PrismaClient } from "@prisma/client";
+import Image from "next/image";
 
 import { trpc } from "../utils/trpc";
+import { Input } from "postcss";
 
 const Home: NextPage = () => {
-  const First = trpc.example.pokemon1.useQuery({ id: 2 });
-  const Second = trpc.example.pokemon2.useQuery({ id: 6 });
+  const addPost = trpc.example.Pkm.useMutation({
+    async onSuccess() {
+      // refetches posts after a post is added
+      console.log("jo");
+    },
+  });
+  const gredg = { pokename: "gesg", sprite: " feges", userId: "1" };
+  const Poke1 = useMemo(() => getRandomInt(1, 500), []);
+  const Poke2 = useMemo(() => getRandomInt(1, 500), []);
+  const Poke3 = useMemo(() => getRandomInt(1, 500), []);
+  function getRandomInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  function SelectPkm() {
+    prisma?.pokemon.create({
+      data: {
+        pokename: "Relaxo",
+        sprite: "fesg",
+        userId: "1",
+      },
+    });
+  }
+  const First = trpc.example.pokemon1.useQuery({ id: Poke1 });
+  const Second = trpc.example.pokemon2.useQuery({ id: Poke2 });
+  const Third = trpc.example.pokemon3.useQuery({ id: Poke3 });
 
   return (
     <>
@@ -17,17 +46,42 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-            VSCritic
-          </h1>
+        <h1 className=" text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+          Choose your Pokemon!
+        </h1>
+        <div className="container flex items-center justify-center gap-12 px-4 py-16 ">
+          <div>
+            <button
+              type="button"
+              className="ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              {First?.data?.name}
+            </button>
 
-          <div className="flex items-center gap-2">
-            <p className="text-2xl text-white">{First?.data?.name}</p>
-            <p className="text-2xl text-white">vs</p>
-            <span className="text-[hsl(280,100%,70%)]">
+            <img src={First?.data?.sprites?.front_default} />
+            <img src={First?.data?.sprites?.front_shiny} />
+          </div>
+
+          <div>
+            <button
+              type="button"
+              className="ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
               {Second?.data?.name}
-            </span>{" "}
+            </button>
+            <img src={Second?.data?.sprites?.front_default} />
+            <img src={Second?.data?.sprites?.front_shiny} />
+          </div>
+
+          <div>
+            <button
+              type="button"
+              className="ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              {Third?.data?.name}
+            </button>
+            <img src={Third?.data?.sprites?.front_default} />
+            <img src={Third?.data?.sprites?.front_shiny} />
           </div>
         </div>
       </main>

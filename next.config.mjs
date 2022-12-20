@@ -10,6 +10,7 @@ const config = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
+    domains: ["raw.githubusercontent.com"],
     remotePatterns: [
       {
         protocol: "https",
