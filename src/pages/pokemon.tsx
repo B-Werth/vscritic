@@ -30,6 +30,7 @@ const Home: NextPage = () => {
           }
           alt={""}
         />
+        <button></button>
       </div>
     );
   }
