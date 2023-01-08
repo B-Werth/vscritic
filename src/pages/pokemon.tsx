@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Prisma, PrismaClient } from "@prisma/client";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 import { trpc } from "../utils/trpc";
 
@@ -20,10 +21,10 @@ const Home: NextPage = () => {
     const PokemonData = trpc.example.pokemon1.useQuery({ id: PokeRandom });
 
     return (
-      <div>
+      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
         <Image
-          width={250}
-          height={250}
+          width={300}
+          height={300}
           src={
             PokemonData?.data?.sprites?.other?.["official-artwork"]
               .front_default as string
@@ -31,7 +32,7 @@ const Home: NextPage = () => {
           alt={""}
         />
         <button></button>
-      </div>
+      </motion.button>
     );
   }
 
@@ -46,7 +47,7 @@ const Home: NextPage = () => {
         <h1 className="  font-extrabold tracking-tight text-white sm:text-[3rem]">
           Choose your Pokemon!
         </h1>
-        <div className="container flex items-center justify-center gap-40 px-4 py-16 ">
+        <div className="container flex flex-row items-center justify-center gap-40 px-4 py-16 ">
           <Pokemon></Pokemon>
           <Pokemon></Pokemon>
           <Pokemon></Pokemon>
