@@ -31,7 +31,6 @@ const Home: NextPage = () => {
           }
           alt={""}
         />
-        <button></button>
       </motion.button>
     );
   }
