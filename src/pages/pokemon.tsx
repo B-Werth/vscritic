@@ -19,6 +19,20 @@ const Home: NextPage = () => {
   function Pokemon() {
     const PokeRandom = useMemo(() => getRandomInt(1, 500), []);
     const PokemonData = trpc.example.pokemon1.useQuery({ id: PokeRandom });
+    const Alluser = trpc.example.getAll.useQuery().data
+    const { mutateAsync: addItem } = trpc.example.addMenuItem.useMutation()
+
+
+    const addMenuItem = async () => {
+      
+      await addItem({
+        pokemonid: 23,
+        pokename: "relaxo",
+        sprite: "grdeg",
+        
+      })
+  
+    console.log(Alluser)
 
     return (
       <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
@@ -30,6 +44,7 @@ const Home: NextPage = () => {
               .front_default as string
           }
           alt={""}
+          onClick={addMenuItem}
         />
       </motion.button>
     );
@@ -55,5 +70,5 @@ const Home: NextPage = () => {
     </>
   );
 };
-
+}
 export default Home;
